@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All-in-One Web Project</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://images.unsplash.com/photo-1612832021055-239d5fd7e4e8') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 40px;
+      justify-content: center;
+    }
+
+    .box {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      flex: 1 1 300px;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    input, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      background: rgba(255,255,255,0.1);
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ul li span {
+      word-break: break-word;
+    }
+
+    ul li button {
+      width: auto;
+      padding: 5px 10px;
+      background-color: #dc3545;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>All-in-One Web Project</h1>
+    <nav>
+      <a href="#contact">Contact</a>
+      <a href="#todo">To-Do</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="box" id="contact">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea id="message" placeholder="Your Message" rows="4" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="box" id="todo">
+      <h2>To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="New task..." />
+      <button onclick="addTask()">Add Task</button>
+      <ul id="taskList"></ul>
+    </div>
+
+    <div class="box">
+      <h2>Upload Image</h2>
+      <input type="file" />
+    </div>
+  </div>
+
+  <script>
+    // Contact Form Validation
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !message || !email.includes('@')) {
+        alert("Please fill out all fields with valid data.");
+        return;
+      }
+
+      alert("Form submitted successfully!");
+      this.reset();
+    });
+
+    // To-Do List Logic
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+      if (!taskText) return;
+
+      const li = document.createElement("li");
+      const span = document.createElement("span");
+      span.textContent = taskText;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "X";
+      removeBtn.onclick = () => li.remove();
+
+      li.appendChild(span);
+      li.appendChild(removeBtn);
+      document.getElementById("taskList").appendChild(li);
+      taskInput.value = "";
+    }
+  </script>
+</body>
+</html>
